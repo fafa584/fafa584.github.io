@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Design Portfolio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fafaf8;
+      color: #222;
+      margin: 0;
+      padding: 80px 8%;
+    }
+    h1 {
+      font-size: clamp(36px, 7vw, 72px);
+      margin-bottom: 20px;
+    }
+    p { color: #666; }
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 60px;
+    }
+    .card {
+      background: #eaeae6;
+      border-radius: 12px;
+      padding: 50px 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hello, I'm Xiaoxiao.</h1>
+  <p>AI Visual Design / Interaction Design / Creative Technology</p>
+
+  <h2>Selected Works</h2>
+  <div class="projects">
+    <div class="card">AI Film & Visual</div>
+    <div class="card">Interaction Design</div>
+    <div class="card">Creative Experiments</div>
+  </div>
+</body>
+</html>
