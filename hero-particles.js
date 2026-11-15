@@ -101,12 +101,28 @@
   draw(reduced.matches ? 0 : performance.now());
  }
 
- hero.addEventListener('pointermove', event => {
-  if (event.pointerType !== 'mouse' || reduced.matches) return;
+ function trackPoint(point) {
+  if (reduced.matches) return;
   const bounds = canvas.getBoundingClientRect();
-  pointer = {x:event.clientX-bounds.left, y:event.clientY-bounds.top};
+  pointer = {x:point.clientX-bounds.left, y:point.clientY-bounds.top};
+ }
+
+ hero.addEventListener('pointermove', event => {
+  if (event.pointerType === 'mouse') trackPoint(event);
  }, {passive:true});
- hero.addEventListener('pointerleave', () => {pointer = null;});
+ hero.addEventListener('pointerleave', event => {
+  if (event.pointerType === 'mouse') pointer = null;
+ });
+
+ // Passive touch listeners keep the glow responsive without taking over scrolling.
+ function trackTouch(event) {
+  if (event.touches.length === 1) trackPoint(event.touches[0]);
+  else pointer = null;
+ }
+ hero.addEventListener('touchstart', trackTouch, {passive:true});
+ hero.addEventListener('touchmove', trackTouch, {passive:true});
+ hero.addEventListener('touchend', trackTouch, {passive:true});
+ hero.addEventListener('touchcancel', () => {pointer = null;}, {passive:true});
  new ResizeObserver(resize).observe(canvas);
  new IntersectionObserver(([entry]) => {
   visible = entry.isIntersecting;
